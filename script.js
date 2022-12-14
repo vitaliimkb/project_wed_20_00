@@ -1,12 +1,18 @@
+/*639a15d6f43a573dae095560 */
 let productsGrid = document.getElementById("products-grid");
 let productsArray = [];
-let url = "https://my-json-server.typicode.com/vitaliimkb/project_wed_20_00/db";
+//let url = "https://my-json-server.typicode.com/vitaliimkb/project_wed_20_00/db";
 let xhr = new XMLHttpRequest();
-xhr.open("GET", url);
+//xhr.open("GET", url);
+
+xhr.open("GET", "https://wed20-73d0.restdb.io/rest/product");
 xhr.responseType = "json";
+xhr.setRequestHeader("content-type", "application/json");
+xhr.setRequestHeader("x-apikey", "639a15d6f43a573dae095560");
+xhr.setRequestHeader("cache-control", "no-cache");
 xhr.send();
 xhr.onload = function() {
-    let products = xhr.response.products;
+    let products = xhr.response;
     productsArray = products;
     productsGrid.innerHTML = null;
     for (const product of products) {
@@ -17,7 +23,6 @@ xhr.onload = function() {
             <img class="product-img" src="${product.photo_url}" alt="${product.name}">
             <p class="product-desc">${product.description}</p>
             <p class="product-price">Price: ${product.price}UAH</p>
-            <a href="user.html?id=${product.author_id}">Seller profile</a>
             <button onclick="addProductToCart(${product.id})">Buy</button>
         `;
         productsGrid.append(productElement);
